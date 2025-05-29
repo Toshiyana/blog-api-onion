@@ -1,53 +1,58 @@
-# オニオンアーキテクチャを用いたブログアプリのAPI
+# Blog Application API with Onion Architecture
 
-## 概要
+## Overview
 
-オニオンアーキテクチャを採用したブログアプリのAPI。
+This is a blog application API designed using the Onion Architecture.
 
-## アーキテクチャ
+## Architecture
 
-1. **ドメイン層 (Domain Layer)**
-   - アプリケーションの中心となるビジネスロジックを含む
-   - エンティティ、値オブジェクト、ドメインサービス、リポジトリで構成
-   - 外部の層に依存しない
-   - リポジトリ
-     - ドメインオブジェクトの永続化を担当
-     - インターフェースのみを定義
+1. **Domain Layer**
 
-2. **ユースケース層 (Usecase Layer)**
-   - アプリケーションの機能を実現するためのビジネスロジックを含む
-   - ドメイン層とリポジトリ層に依存する
+   * Contains the core business logic of the application
+   * Composed of entities, value objects, domain services, and repositories
+   * Independent of external layers
+   * Repository
 
-3. **インフラストラクチャ層 (Infrastructure Layer)**
-   - データベース、外部APIなどの技術的な実装を含む
-   - リポジトリインターフェースの実装を提供
+     * Responsible for persisting domain objects
+     * Defines only interfaces
 
-4. **UI層 (UI Layer)**
-   - ユーザーインターフェースを提供
-   - HTTPハンドラ、ミドルウェアなどを含む
+2. **Usecase Layer**
 
-## API エンドポイント
+   * Contains the business logic to implement the application's features
+   * Depends on the domain layer and repository interfaces
 
-### ユーザー関連
+3. **Infrastructure Layer**
 
-- `POST /api/users/register` - ユーザー登録
-- `POST /api/users/login` - ログイン
-- `GET /api/users/:id` - ユーザー情報取得
-- `PUT /api/users/:id` - ユーザー情報更新
-- `DELETE /api/users/:id` - ユーザー削除
+   * Contains technical implementations such as databases and external APIs
+   * Provides implementations for repository interfaces
 
-### ブログ関連
+4. **UI Layer**
 
-- `POST /api/blogs` - ブログ投稿
-- `GET /api/blogs` - ブログ一覧取得
-- `GET /api/blogs/:id` - ブログ詳細取得
-- `GET /api/users/:id/blogs` - ユーザーのブログ一覧取得
-- `PUT /api/blogs/:id` - ブログ更新
-- `DELETE /api/blogs/:id` - ブログ削除
+   * Provides the user interface
+   * Includes HTTP handlers, middleware, etc.
 
-### コメント関連
+## API Endpoints
 
-- `POST /api/blogs/:id/comments` - コメント投稿
-- `GET /api/blogs/:id/comments` - ブログのコメント一覧取得
-- `PUT /api/comments/:id` - コメント更新
-- `DELETE /api/comments/:id` - コメント削除
+### User-related
+
+* `POST /api/users/register` - Register a new user
+* `POST /api/users/login` - User login
+* `GET /api/users/:id` - Get user information
+* `PUT /api/users/:id` - Update user information
+* `DELETE /api/users/:id` - Delete user
+
+### Blog-related
+
+* `POST /api/blogs` - Create a new blog post
+* `GET /api/blogs` - Get list of blog posts
+* `GET /api/blogs/:id` - Get blog post details
+* `GET /api/users/:id/blogs` - Get list of blog posts by user
+* `PUT /api/blogs/:id` - Update blog post
+* `DELETE /api/blogs/:id` - Delete blog post
+
+### Comment-related
+
+* `POST /api/blogs/:id/comments` - Add a comment to a blog post
+* `GET /api/blogs/:id/comments` - Get comments for a blog post
+* `PUT /api/comments/:id` - Update a comment
+* `DELETE /api/comments/:id` - Delete a comment
