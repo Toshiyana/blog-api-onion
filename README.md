@@ -1,8 +1,8 @@
-# Blog Application API with Onion Architecture
+# Blog Application Backend with Onion Architecture
 
 ## Overview
 
-This is a blog application API designed using the Onion Architecture.
+This is a blog application API and Batch designed using the Onion Architecture.
 
 ## Architecture
 
