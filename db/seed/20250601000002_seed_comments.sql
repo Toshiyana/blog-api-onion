@@ -1,7 +1,7 @@
 -- Seed data for comments table
 INSERT INTO `comments` (`id`, `blog_id`, `user_id`, `content`)
 VALUES
-  ('00000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000002', 'Great introduction to Go! I\'ve been wanting to learn it for a while.'),
+  ('00000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000002', 'Great introduction to Go! I have been wanting to learn it for a while.'),
   ('00000000-0000-0000-0000-000000000002', '00000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000003', 'Could you add more examples about concurrency in Go?'),
   ('00000000-0000-0000-0000-000000000003', '00000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000004', 'This helped me understand Go better. Thanks!'),
 

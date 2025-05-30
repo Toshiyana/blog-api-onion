@@ -21,6 +21,22 @@ services:
     extra_hosts:
       - host.docker.internal:host-gateway
 
+  batch:
+    build:
+      context: .
+      dockerfile: ./docker/batch/Dockerfile
+      target: builder
+    env_file:
+      - ./env/.env.shared
+      - ./env/.env.batch
+    volumes:
+      - .:/go/src/myblog
+    working_dir: /go/src/myblog
+    depends_on:
+      - rdb
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
   rdb:
     image: mysql:8.0.34
     platform: linux/amd64
@@ -43,12 +59,4 @@ services:
       - ./env/.env.db
     volumes:
       - ./db/migrations:/docker-entrypoint-initdb.d
-    restart: on-failure
-
-  adminer:
-    image: adminer
-    ports:
-      - "8081:8080"
-    depends_on:
-      - rdb
     restart: on-failure

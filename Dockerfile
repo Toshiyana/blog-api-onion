@@ -1,7 +1,7 @@
 ARG BUILD_ENV="base"
 
 # 本番と開発環境両方で使われるステージ
-FROM golang:1.24.0 AS base
+FROM golang:1.24.3 AS base
 # タイムゾーンと証明書の設定
 RUN apt-get update && apt-get install -y --no-install-recommends tzdata ca-certificates && \
   cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime

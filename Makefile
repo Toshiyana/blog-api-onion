@@ -21,6 +21,29 @@ show-rdb-log: ## rdbコンテナで実行されたSQLのログを表示
 	docker compose exec rdb tail -fn ${TAIL_LINES} /var/tmp/mysqld.log
 
 # ==========================
+# ビルド
+# ==========================
+
+# ホットリロード用ビルド
+.PHONY: build-hotreload
+build-hotreload:
+	GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -o ./tmp/api ./cmd/api/*.go
+
+## ビルド(バッチ)
+.PHONY: build-batch
+build-batch:
+	GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -o ./cmd/batch/bin/batch ./cmd/batch/main.go
+
+# ==========================
+# バッチ検証
+# ==========================
+
+.PHONY: batch-exec
+batch-exec: ## バッチ実行($CMDにコマンドを指定)
+	@docker compose run batch \
+		sh -c "make build-batch && /go/src/myblog/cmd/batch/bin/batch ${CMD}"
+
+# ==========================
 # テスト
 # ==========================
 
