@@ -1,58 +1,58 @@
-# MyBlog - オニオンアーキテクチャを用いたブログアプリケーション
+# Blog Application API with Onion Architecture
 
-## 概要
+## Overview
 
-MyBlogは、オニオンアーキテクチャを採用したブログアプリケーションです。ユーザーは記事を投稿し、他のユーザーの記事にコメントすることができます。
+This is a blog application API designed using the Onion Architecture.
 
-## アーキテクチャ
+## Architecture
 
-このアプリケーションはオニオンアーキテクチャに基づいて設計されています。オニオンアーキテクチャは、ドメイン中心の設計手法で、依存関係が内側から外側に向かうように制約されています。
+1. **Domain Layer**
 
-### レイヤー構成
+   * Contains the core business logic of the application
+   * Composed of entities, value objects, domain services, and repositories
+   * Independent of external layers
+   * Repository
 
-1. **ドメイン層 (Domain Layer)**
-   - アプリケーションの中心となるビジネスロジックを含む
-   - エンティティ、値オブジェクト、ドメインサービスなどで構成
-   - 外部の層に依存しない
+     * Responsible for persisting domain objects
+     * Defines only interfaces
 
-2. **リポジトリ層 (Repository Layer)**
-   - ドメインオブジェクトの永続化を担当
-   - インターフェースのみを定義し、実装は外部層に委ねる
+2. **Usecase Layer**
 
-3. **ユースケース層 (Usecase Layer)**
-   - アプリケーションの機能を実現するためのビジネスロジックを含む
-   - ドメイン層とリポジトリ層に依存する
+   * Contains the business logic to implement the application's features
+   * Depends on the domain layer and repository interfaces
 
-4. **インフラストラクチャ層 (Infrastructure Layer)**
-   - データベース、外部APIなどの技術的な実装を含む
-   - リポジトリインターフェースの実装を提供
+3. **Infrastructure Layer**
 
-5. **UI層 (UI Layer)**
-   - ユーザーインターフェースを提供
-   - HTTPハンドラ、ミドルウェアなどを含む
+   * Contains technical implementations such as databases and external APIs
+   * Provides implementations for repository interfaces
 
-## API エンドポイント
+4. **UI Layer**
 
-### ユーザー関連
+   * Provides the user interface
+   * Includes HTTP handlers, middleware, etc.
 
-- `POST /api/users/register` - ユーザー登録
-- `POST /api/users/login` - ログイン
-- `GET /api/users/:id` - ユーザー情報取得
-- `PUT /api/users/:id` - ユーザー情報更新
-- `DELETE /api/users/:id` - ユーザー削除
+## API Endpoints
 
-### ブログ関連
+### User-related
 
-- `POST /api/blogs` - ブログ投稿
-- `GET /api/blogs` - ブログ一覧取得
-- `GET /api/blogs/:id` - ブログ詳細取得
-- `GET /api/users/:id/blogs` - ユーザーのブログ一覧取得
-- `PUT /api/blogs/:id` - ブログ更新
-- `DELETE /api/blogs/:id` - ブログ削除
+* `POST /api/users/register` - Register a new user
+* `POST /api/users/login` - User login
+* `GET /api/users/:id` - Get user information
+* `PUT /api/users/:id` - Update user information
+* `DELETE /api/users/:id` - Delete user
 
-### コメント関連
+### Blog-related
 
-- `POST /api/blogs/:id/comments` - コメント投稿
-- `GET /api/blogs/:id/comments` - ブログのコメント一覧取得
-- `PUT /api/comments/:id` - コメント更新
-- `DELETE /api/comments/:id` - コメント削除
+* `POST /api/blogs` - Create a new blog post
+* `GET /api/blogs` - Get list of blog posts
+* `GET /api/blogs/:id` - Get blog post details
+* `GET /api/users/:id/blogs` - Get list of blog posts by user
+* `PUT /api/blogs/:id` - Update blog post
+* `DELETE /api/blogs/:id` - Delete blog post
+
+### Comment-related
+
+* `POST /api/blogs/:id/comments` - Add a comment to a blog post
+* `GET /api/blogs/:id/comments` - Get comments for a blog post
+* `PUT /api/comments/:id` - Update a comment
+* `DELETE /api/comments/:id` - Delete a comment
