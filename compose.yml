@@ -42,9 +42,12 @@ services:
     platform: linux/amd64
     ports:
       - "3306:3306"
-    env_file:
-      - ./env/.env.shared
-      - ./env/.env.db
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=myblog
+      - MYSQL_USER=myblog
+      - MYSQL_PASSWORD=password
+      - TZ=Asia/Tokyo
     volumes:
       - ./db/migrations:/docker-entrypoint-initdb.d
     restart: on-failure
@@ -54,9 +57,12 @@ services:
     platform: linux/amd64
     ports:
       - "3307:3306"
-    env_file:
-      - ./env/.env.shared
-      - ./env/.env.db
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=myblog
+      - MYSQL_USER=myblog
+      - MYSQL_PASSWORD=password
+      - TZ=Asia/Tokyo
     volumes:
       - ./db/migrations:/docker-entrypoint-initdb.d
     restart: on-failure
